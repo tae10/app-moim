@@ -62,9 +62,9 @@ public class MoimDetailController extends HttpServlet {
 				(SqlSessionFactory)req.getServletContext().getAttribute("sqlSessionFactory");
 		SqlSession sqlSession = factory.openSession();
 		
-		 List<Reply> list =sqlSession.selectList("replys.findByReplys", moim.getId());
+		 List<Reply> replys =sqlSession.selectList("replys.findByReplys", moim.getId());
 		    
-		 req.setAttribute("list", list);
+		 req.setAttribute("replys", replys);
 		
 		
 		// 뷰로 넘기는 작업은 패스
