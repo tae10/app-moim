@@ -2,6 +2,7 @@ package controller.moim;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import data.Moim;
+import data.Reply;
 import data.User;
 import repository.Moims;
 
@@ -26,13 +28,15 @@ public class MoimReplyController extends HttpServlet {
 		SqlSessionFactory factory = (SqlSessionFactory) req.getServletContext().getAttribute("sqlSessionFactory");
 		SqlSession sqlSession = factory.openSession();
 
-		User logonUser = (User) req.getSession().getAttribute("logouUser");
+		User logonUser = (User) req.getSession().getAttribute("logonUser");
 
 		String id = logonUser.getId();
-		Moim target = Moims.findById(id);
+		System.out.println(id);
+		
 
 		String ment = req.getParameter("ment");
-
+		System.out.println(ment);
+        String target = req.getParameter("id");
 		Map<String, Object> params = new HashMap<>();
 
 		params.put("moimId", target);
@@ -40,7 +44,12 @@ public class MoimReplyController extends HttpServlet {
 		params.put("ment", ment);
 		
 		int r = sqlSession.insert("replys.create", params);
+		
+		
+		
 
+		resp.sendRedirect("/moim/detail");
+		 
 	}
 
 }

@@ -31,14 +31,11 @@
 									<span class="">비공개</span>
 								</c:otherwise>
 							</c:choose>
-							<span>|</span> <span>${moim.cate }</span> <span>|</span>
-							<small>
-							<fmt:formatDate value="${moim.beginDate }"
-								pattern="yyyy.MM.dd (E)" />
-							<span>|</span>
-							<fmt:formatDate value="${moim.beginDate }" pattern="HH:mm" />
-							~
-							<fmt:formatDate value="${moim.endDate }" pattern="HH:mm" />
+							<span>|</span> <span>${moim.cate }</span> <span>|</span> <small>
+								<fmt:formatDate value="${moim.beginDate }"
+									pattern="yyyy.MM.dd (E)" /> <span>|</span> <fmt:formatDate
+									value="${moim.beginDate }" pattern="HH:mm" /> ~ <fmt:formatDate
+									value="${moim.endDate }" pattern="HH:mm" />
 							</small>
 						</div>
 						<div>
@@ -65,37 +62,47 @@
 						</c:forEach>
 					</div>
 					<div>
-					  <c:if test="${sessionScope.logonUser.id ne moim.managerId }">
-						<c:choose>
-						    <c:when test="${moim.currentPerson ge moim.maxPerson }">
-						       <a class="moim-join-btn">참가신청 불가</a>
-						    
-						    </c:when>
-							<c:when test="${status eq -1 }">
-								<a class="moim-join-bt" href="/user/login">참가신청을 하기위해서는 로그인이 필요합니다.</a>
-							</c:when>
-							<c:when test="${status eq 0 }">
-							   <a class ="moim-join-bt" href="/moim/join-task?target=${moim.id}">참가신청</a>
-							</c:when>
-							<c:when test="${status eq 1 }">
-								<a class="moim-join-bt">승인 대기중</a>
-							</c:when>
-							<c:otherwise>
-							   <a class="moim-join-btn"> 신청완료</a>
-							</c:otherwise>
-						</c:choose>
-                       </c:if>
-                       <div >
-                       <form action="/moim/reply">
-                        <textarea  style="margin:left"  name="ment">댓글</textarea>
-                        <button type="submit">등록</button>
-                       </form>
-                       </div>
+						<c:if test="${sessionScope.logonUser.id ne moim.managerId }">
+							<c:choose>
+								<c:when test="${moim.currentPerson ge moim.maxPerson }">
+									<a class="moim-join-btn">참가신청 불가</a>
+
+								</c:when>
+								<c:when test="${status eq -1 }">
+									<a class="moim-join-bt" href="/user/login">참가신청을 하기위해서는
+										로그인이 필요합니다.</a>
+								</c:when>
+								<c:when test="${status eq 0 }">
+									<a class="moim-join-bt"
+										href="/moim/join-task?target=${moim.id}">참가신청</a>
+								</c:when>
+								<c:when test="${status eq 1 }">
+									<a class="moim-join-bt">승인 대기중</a>
+								</c:when>
+								<c:otherwise>
+									<a class="moim-join-btn"> 신청완료</a>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+						 <div>
+						  <c:forEach begin="0" end="${lis.size() }" var="one">
+						     ${one }
+						  
+						  </c:forEach>
+						 </div>
+						<div>
+							<form action="/moim/reply">
+								<input type="hidden" name="id" value="${moim.id }">
+
+								<textarea style="margin: left" name="ment">댓글</textarea>
+								<button type="submit">등록</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
+
 </body>
 </html>

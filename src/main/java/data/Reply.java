@@ -3,17 +3,19 @@ package data;
 import java.util.Date;
 
 public class Reply {
-	String id;
+	int id;
 	String moimId;
 	String writer;
 	String ment;
 	Date writed;
 
-	public String getId() {
+	
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
