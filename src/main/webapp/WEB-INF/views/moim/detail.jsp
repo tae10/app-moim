@@ -85,6 +85,12 @@
 							</c:otherwise>
 						</c:choose>
                        </c:if>
+                       <div >
+                       <form action="/moim/reply">
+                        <textarea  style="margin:left"  name="ment">댓글</textarea>
+                        <button type="submit">등록</button>
+                       </form>
+                       </div>
 					</div>
 				</div>
 			</div>
