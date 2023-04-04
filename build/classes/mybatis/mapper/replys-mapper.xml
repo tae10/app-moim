@@ -4,9 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="replys">
   <insert id="create" parameterType="java.util.HashMap">
-   INSERT INTO REPLYS(ID,MOIM_ID , WRITER , MENT) VALUES(REPLYS_SEQ.NEXTVAL, #{moimId}, # {writer}, #{ment})
+   INSERT INTO REPLYS(ID,MOIM_ID , WRITER , MENT) VALUES(REPLYS_SEQ.NEXTVAL, #{moimId},  #{writer},  #{ment})
   </insert>
-
+   
+    <insert parameterType="data.Reply" id="createByVo">
+    INSERT INTO REPLYS(ID,MOIM_ID, WRITER, MENT)VALUES(REPLYS_SEQ.NEXTVAL, #{moimId},#{writer}, #{ment}) 
+    </insert>
 
 
 
@@ -14,5 +17,8 @@
 	  SELECT * FROM REPLYS WHERE MOIM_ID = #{moimId} ORDER BY WRITED ASC
 		
 	</select>
+	
+	
+	
 	
 </mapper>
