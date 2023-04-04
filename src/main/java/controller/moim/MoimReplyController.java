@@ -23,7 +23,7 @@ public class MoimReplyController extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
 		SqlSessionFactory factory = (SqlSessionFactory) req.getServletContext().getAttribute("sqlSessionFactory");
-		SqlSession sqlSession = factory.openSession();
+		SqlSession sqlSession = factory.openSession(true);
 
 		User logonUser = (User)req.getSession().getAttribute("logonUser");
 
@@ -40,12 +40,16 @@ public class MoimReplyController extends HttpServlet {
 		params.put("ment", ment);
 		
 		 sqlSession.insert("replys.create", params);
+//		
+//		Reply r = new Reply();
+//		r.setMent(ment);
+//		r.setWriter(id);
+//		r.setMoimId(target);
+//		
+//		sqlSession.insert("replys.createByVo",r);
+//		
 		
-		Reply r = new Reply();
-		
-		
-		
-		sqlSession.commit();
+		sqlSession.commit(); //커밋을 시켜줘야 반영이된다 반드시 들어가야됨
 		sqlSession.close();
 
 		resp.sendRedirect("/moim/detail?id=" + target );
