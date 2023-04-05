@@ -10,9 +10,61 @@
 		WHERE
 		ROWNUM &lt;=3
 	</select>
+	
+<select resultType="data.Moim" id="findSomeByAtoBInCates" parameterType="hashmap">
+SELECT * FROM(SELECT ROWNUM RN, t.* FROM(SELECT * FROM MOIMS WHERE BEGIN_DATE > SYSDATE 
+
+<if test="cates !=null">
+AND CATE IN 
+<foreach separator="," close=")" open="(" item="c" collection="cates">
+#{c} 
+</foreach>
+
+</if>
+ORDER BY BEGIN_DATE) t) WHERE RN BETWEEN #{a} AND #{b} 
+</select>
+	
+	<select id="findSomeByCates" resultType="data.Moim" parameterType="object[]">
+	 SELECT * FROM MOIMS WHERE BEGIN_DATE &gt; SYSDATE 
+	 <if test="array != null">
+	       AND CATE IN
+	         <foreach collection="array" open=" ("  separator="," close=")" item="one">
+	           #{one}
+	         
+	         </foreach>
+	 </if>	
+	
+	
+	</select>
+	
+
+	<select id="findSomeByAtoB" resultType="data.Moim" parameterType="hashmap">
+	SELECT *FROM
+	(SELECT ROWNUM RN, T.* FROM
+     (SELECT * FROM MOIMS  WHERE BEGIN_DATE &gt;SYSDATE    ORDER BY BEGIN_DATE)	T
+     ) WHERE RN BETWEEN #{a} and #{b}
+	</select>
+	
+	<select id="countDatas" resultType="int" parameterType="map">
+	SELECT COUNT(*) FROM  MOIMS
+	WHERE BEGIN_DATE &gt; SYSDATE
+	 <if test="array != null">
+	       AND CATE IN
+	         <foreach collection="array" open=" ("  separator="," close=")" item="one">
+	           #{one}
+	         
+	         </foreach>
+	 </if>	
+	</select>
+	
+	
+	
 	<select id="findById" resultType="data.Moim" parameterType="string">
 		SELECT * FROM MOIMS WHERE ID = #{id}
 	</select>
+	
+	
+	
 	<update id="updateCurrentPerson"  parameterType="string" >
 		UPDATE MOIMS SET CURRENT_PERSON = CURRENT_PERSON + 1 WHERE ID = #{id}
 	</update>
